@@ -1,4 +1,4 @@
-package com.github.andybug;
+package com.andybug.jaspe;
 
 /**
  * Hello world!

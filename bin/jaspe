@@ -11,4 +11,4 @@ fi
 JAR_FILE=$(ls -1t $TARGET_DIR/jaspe*.jar | head -n1)
 
 # start jaspe
-java -cp $JAR_FILE com.github.andybug.App
+java -cp $JAR_FILE com.andybug.jaspe.App

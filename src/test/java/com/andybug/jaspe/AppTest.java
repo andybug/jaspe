@@ -1,4 +1,4 @@
-package com.github.andybug;
+package com.andybug.jaspe;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
