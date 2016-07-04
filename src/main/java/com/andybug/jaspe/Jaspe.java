@@ -1,7 +1,5 @@
 package com.andybug.jaspe;
 
-import java.io.FileNotFoundException;
-
 
 public class Jaspe
 {
@@ -17,8 +15,9 @@ public class Jaspe
 	try {
 	    ConfigParser configParser = new ConfigParser(args[0]);
 	    Config config = configParser.parse();
-	} catch (FileNotFoundException fnfe) {
-	    System.err.println("Could not open '" + fnfe.getMessage() + "'");
+
+	} catch (Exception e) {
+	    System.err.println(e);
 	    System.exit(1);
 	}
     }
