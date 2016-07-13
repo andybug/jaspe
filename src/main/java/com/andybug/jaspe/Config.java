@@ -1,5 +1,8 @@
 package com.andybug.jaspe;
 
+import com.andybug.jaspe.exception.OutOfRangeException;
+
+
 class Config
 {
 
@@ -20,16 +23,19 @@ class Config
 
     /* methods */
 
-    public boolean validate()
+    public boolean validate() throws OutOfRangeException
     {
-	boolean retval = true;
-
 	/* validate ports */
-	retval = retval && validatePort(servers.jaspe);
-	retval = retval && validatePort(servers.redis);
-	retval = retval && validatePort(servers.postgres);
+	if (!validatePort(servers.jaspe))
+	    throw new OutOfRangeException("jaspe port " + servers.jaspe + " out of range");
 
-	return retval;
+	if (!validatePort(servers.redis))
+	    throw new OutOfRangeException("redis port " + servers.redis + " out of range");
+
+	if (!validatePort(servers.postgres))
+	    throw new OutOfRangeException("postgres port " + servers.postgres + " out of range");
+
+	return true;
     }
 
 

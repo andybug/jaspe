@@ -6,6 +6,8 @@ import java.io.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
+import com.andybug.jaspe.exception.OutOfRangeException;
+
 
 class ConfigParser
 {
@@ -17,7 +19,7 @@ class ConfigParser
 	configFile = new File(configPath);
     }
 
-    public Config parse() throws FileNotFoundException, IOException
+    public Config parse() throws FileNotFoundException, IOException, OutOfRangeException
     {
 	/* make sure the file exists */
 	if (!configFile.isFile())

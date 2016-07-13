@@ -13,8 +13,7 @@ public class Jaspe
 	}
 
 	try {
-	    ConfigParser configParser = new ConfigParser(args[0]);
-	    Config config = configParser.parse();
+	    Config config = new ConfigParser(args[0]).parse();
 
 	} catch (Exception e) {
 	    System.err.println(e);
