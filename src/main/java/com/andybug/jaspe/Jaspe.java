@@ -14,7 +14,7 @@ public class Jaspe
 
 	try {
 	    Config config = new ConfigParser(args[0]).parse();
-
+	    KeyValueStore kvs = new KeyValueStore(config);
 	} catch (Exception e) {
 	    System.err.println(e);
 	    System.exit(1);
