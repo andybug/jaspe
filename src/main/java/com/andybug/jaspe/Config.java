@@ -15,10 +15,16 @@ class Config
 	public short postgres;
     }
 
+    static class LocalDatabaseSettings
+    {
+	public String path;
+    }
+
 
     /* document members */
 
     public ServerPorts servers;
+    public LocalDatabaseSettings local_database;
 
 
     /* methods */
