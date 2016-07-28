@@ -3,7 +3,6 @@ package com.andybug.jaspe;
 
 public class Jaspe
 {
-    private Config config;
     private KeyValueStore kvs;
     private LocalDatabase local_db;
 
@@ -11,7 +10,7 @@ public class Jaspe
     public Jaspe(String config_path)
     {
 	try {
-	    config = new ConfigParser(config_path).parse();
+	    Config config = Config.parse(config_path);
 	    kvs = new KeyValueStore(config.servers.redis);
 	    local_db = new LocalDatabase(config.local_database.path);
 	} catch (Exception e) {
