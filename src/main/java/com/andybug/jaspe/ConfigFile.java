@@ -46,7 +46,11 @@ class ConfigFile
     public static ConfigFile parse(String configPath)
         throws FileNotFoundException
     {
-        File file = new File(configPath);
+        /* handle ~ in file path */
+        String fixedPath =
+            configPath.replaceFirst("^~", System.getProperty("user.home"));
+
+        File file = new File(fixedPath);
 
         /* make sure the file exists */
         if (!file.isFile())
