@@ -3,31 +3,39 @@ package com.andybug.jaspe;
 
 public class Jaspe
 {
+    private Config config;
     private KeyValueStore kvs;
     private LocalDatabase local_db;
 
 
-    public Jaspe(String config_path)
+    public Jaspe(Config config)
     {
-	try {
-	    Config config = Config.parse(config_path);
-	    kvs = new KeyValueStore(config.servers.redis);
-	    local_db = new LocalDatabase(config.local_database.path);
-	} catch (Exception e) {
-	    System.err.println(e);
-	    System.exit(1);
-	}
+        this.config = config;
+
+        try {
+            kvs = new KeyValueStore(config);
+            local_db = new LocalDatabase(config);
+        } catch (Exception e) {
+            System.err.println(e);
+            System.exit(1);
+        }
     }
 
     public static void main( String[] args )
     {
         System.out.println("jaspe!");
 
-	if (args.length < 1) {
-	    System.err.println("jaspe <config.yaml>");
-	    System.exit(1);
-	}
+        if (args.length < 1) {
+            System.err.println("jaspe <config.yaml>");
+            System.exit(1);
+        }
 
-	Jaspe jaspe = new Jaspe(args[0]);
+        try {
+            Config config = new Config(args);
+            Jaspe jaspe = new Jaspe(config);
+        } catch (Exception e) {
+            System.err.println(e);
+            System.exit(1);
+        }
     }
 }

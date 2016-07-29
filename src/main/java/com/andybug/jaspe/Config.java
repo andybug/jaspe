@@ -2,85 +2,28 @@ package com.andybug.jaspe;
 
 import java.io.*;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-
-import com.andybug.jaspe.exception.OutOfRangeException;
-
 
 class Config
 {
+    private ConfigFile configFile;
 
-    /* internal classes */
 
-    static class ServerPorts
+    public Config(String[] args) throws FileNotFoundException
     {
-	public short jaspe;
-	public short redis;
-	public short postgres;
-    }
-
-    static class LocalDatabaseSettings
-    {
-	public String path;
+        configFile = ConfigFile.parse(args[0]);
+        System.out.println(configFile);
     }
 
 
-    /* document members */
+    /* getters */
 
-    public ServerPorts servers;
-    public LocalDatabaseSettings local_database;
-
-
-    /* methods */
-
-    public boolean validate() throws OutOfRangeException
+    public short getRedisPort()
     {
-	/* validate ports */
-	if (!validatePort(servers.jaspe))
-	    throw new OutOfRangeException("jaspe port " + servers.jaspe + " out of range");
-
-	if (!validatePort(servers.redis))
-	    throw new OutOfRangeException("redis port " + servers.redis + " out of range");
-
-	if (!validatePort(servers.postgres))
-	    throw new OutOfRangeException("postgres port " + servers.postgres + " out of range");
-
-	return true;
+        return configFile.servers.redis;
     }
 
-
-    /* static methods */
-
-    public static Config parse(String configPath)
-	throws FileNotFoundException, IOException, OutOfRangeException
+    public String getLocalDatabasePath()
     {
-	File configFile = new File(configPath);
-
-	/* make sure the file exists */
-	if (!configFile.isFile())
-	    throw new FileNotFoundException("Unable to read config file " + configFile.getPath());
-
-	/* map the .yaml to the fields in the Config class */
-	ObjectMapper mapper = new YAMLMapper();
-	Config config = mapper.readValue(configFile, Config.class);
-
-	/* validate config */
-	config.validate();
-
-	return config;
-    }
-
-
-    /* private methods */
-
-    private boolean validatePort(short port)
-    {
-	final int PORT_MAX = (1 << 16) - 1;
-
-	if (port < 0 || port > PORT_MAX)
-	    return false;
-
-	return true;
+        return configFile.local_database.path;
     }
 }

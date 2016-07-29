@@ -8,8 +8,8 @@ class LocalDatabase
     private final File root;
 
 
-    public LocalDatabase(String path)
+    public LocalDatabase(Config config)
     {
-	root = new File(path);
+	root = new File(config.getLocalDatabasePath());
     }
 }

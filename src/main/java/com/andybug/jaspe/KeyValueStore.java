@@ -7,8 +7,8 @@ class KeyValueStore
     private Jedis jedis = null;
 
 
-    public KeyValueStore(short port)
+    public KeyValueStore(Config config)
     {
-	jedis = new Jedis("localhost", port);
+	jedis = new Jedis("localhost", config.getRedisPort());
     }
 }
