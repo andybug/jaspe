@@ -10,6 +10,6 @@ class LocalDatabase
 
     public LocalDatabase(Config config)
     {
-	root = new File(config.getLocalDatabasePath());
+	root = new File(config.getRootPath() + "/data");
     }
 }

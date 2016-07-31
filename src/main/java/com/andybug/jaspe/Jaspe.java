@@ -1,5 +1,7 @@
 package com.andybug.jaspe;
 
+import java.io.PrintStream;
+
 
 public class Jaspe
 {
@@ -25,16 +27,12 @@ public class Jaspe
     {
         System.out.println("jaspe!");
 
-        if (args.length < 1) {
-            System.err.println("jaspe <config.yaml>");
-            System.exit(1);
-        }
-
         try {
             Config config = new Config(args);
             Jaspe jaspe = new Jaspe(config);
         } catch (Exception e) {
             System.err.println(e);
+            e.printStackTrace(new PrintStream(System.err));
             System.exit(1);
         }
     }
