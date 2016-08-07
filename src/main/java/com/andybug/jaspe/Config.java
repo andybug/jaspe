@@ -35,6 +35,7 @@ class Config
     {
         StringBuilder sb = new StringBuilder();
         sb.append("--- config ---\n");
+        sb.append("run.sport = " + cvars.get("run.sport") + "\n");
         sb.append("jaspe.root = " + cvars.get("jaspe.root") + "\n");
         sb.append("jaspe.port = " + cvars.get("jaspe.port") + "\n");
         sb.append("kvs.type = " + cvars.get("kvs.type") + "\n");
@@ -75,6 +76,8 @@ class Config
             System.exit(1);
         }
 
+        cvars.put("run.sport", line.getOptionValue("sport"));
+
         if (line.hasOption("config"))
             readConfigFile(line.getOptionValue("config"));
     }
@@ -90,7 +93,16 @@ class Config
             .withArgName("config file")
             .create();
 
+        Option sport = OptionBuilder
+            .withLongOpt("sport")
+            .withDescription("name of the sport to process (cfb,nfl,etc.)")
+            .hasArg()
+            .withArgName("name")
+            .isRequired()
+            .create('s');
+
         options.addOption(config);
+        options.addOption(sport);
 
         return options;
     }
@@ -151,6 +163,11 @@ class Config
     public String getRootPath()
     {
         return (String) cvars.get("jaspe.root");
+    }
+
+    public String getSport()
+    {
+        return (String) cvars.get("run.sport");
     }
 
     public short getRedisPort()
