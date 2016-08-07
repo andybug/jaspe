@@ -1,6 +1,7 @@
 package com.andybug.jaspe;
 
 import java.io.PrintStream;
+import java.io.FileNotFoundException;
 
 
 public class Jaspe
@@ -23,6 +24,11 @@ public class Jaspe
         }
     }
 
+    public void run() throws FileNotFoundException
+    {
+        local_db.load(kvs);
+    }
+
     public static void main( String[] args )
     {
         System.out.println("jaspe!");
@@ -30,6 +36,7 @@ public class Jaspe
         try {
             Config config = new Config(args);
             Jaspe jaspe = new Jaspe(config);
+            jaspe.run();
         } catch (Exception e) {
             System.err.println(e);
             e.printStackTrace(new PrintStream(System.err));
