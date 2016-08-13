@@ -1,6 +1,7 @@
 package com.andybug.jaspe;
 
 import java.io.PrintStream;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 
 
@@ -24,7 +25,7 @@ public class Jaspe
         }
     }
 
-    public void run() throws FileNotFoundException
+    public void run() throws IOException, FileNotFoundException
     {
         local_db.load(kvs);
     }
