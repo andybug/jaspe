@@ -79,7 +79,6 @@ class LocalDatabase
                 game.neutral = record.get(6);
 
                 if (round_next != null && round_next.inRound(game.date)) {
-                    System.out.println(game.date + " not in " + round_current.date);
                     round_current = round_next;
                     if (round_iter.hasNext())
                         round_next = round_iter.next();
@@ -129,7 +128,6 @@ class LocalDatabase
         for (File season_dir : season_dirs) {
             Season season = new Season(season_dir);
             season.load(kvs);
-            System.exit(0);
         }
     }
 
