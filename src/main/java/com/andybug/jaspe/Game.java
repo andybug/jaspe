@@ -11,6 +11,18 @@ class Game
 {
     static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
+    static class Transporter
+    {
+        public String date;
+        public String uuid;
+        public String home;
+        public String hscore;
+        public String away;
+        public String ascore;
+        public String neutral;
+    }
+
+
     public Date date;
     public UUID uuid;
     public UUID home;
@@ -21,6 +33,23 @@ class Game
 
     public Game()
     {
+    }
+
+    public Game(Game.Transporter trans)
+    {
+        try {
+            this.date = df.parse(trans.date);
+        } catch (ParseException e) {
+            System.err.println(e);
+            System.exit(1);
+        }
+
+        this.uuid = UUID.fromString(trans.uuid);
+        this.home = UUID.fromString(trans.uuid);
+        this.hscore = Short.valueOf(trans.hscore);
+        this.away = UUID.fromString(trans.uuid);
+        this.ascore = Short.valueOf(trans.ascore);
+        this.neutral = Boolean.valueOf(trans.neutral);
     }
 
     public String toString()
@@ -37,48 +66,5 @@ class Game
         sb.append("neutral = " + neutral + "\n");
 
         return sb.toString();
-    }
-
-    public void setDate(String date)
-    {
-        try {
-            this.date = df.parse(date);
-        } catch (ParseException e) {
-            System.err.println(e);
-            System.exit(1);
-        }
-    }
-
-    public void setUUID(String uuid)
-    {
-        this.uuid = UUID.fromString(uuid);
-    }
-
-    public void setHome(String uuid)
-    {
-        this.home = UUID.fromString(uuid);
-    }
-
-    public void setHomeScore(String score)
-    {
-        this.hscore = Short.valueOf(score);
-    }
-
-    public void setAway(String uuid)
-    {
-        this.away = UUID.fromString(uuid);
-    }
-
-    public void setAwayScore(String score)
-    {
-        this.ascore = Short.valueOf(score);
-    }
-
-    public void setNeutral(String neutral)
-    {
-        if (neutral.equals("0"))
-            this.neutral = false;
-        else
-            this.neutral = true;
     }
 }
