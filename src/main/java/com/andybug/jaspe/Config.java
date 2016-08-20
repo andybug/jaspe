@@ -174,4 +174,9 @@ class Config
     {
         return ((Short) cvars.get("kvs.port")).shortValue();
     }
+
+    public short getJaspePort()
+    {
+        return ((Short) cvars.get("jaspe.port")).shortValue();
+    }
 }

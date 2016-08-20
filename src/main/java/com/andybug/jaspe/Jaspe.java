@@ -10,6 +10,7 @@ public class Jaspe
     private Config config;
     private KeyValueStore kvs;
     private LocalDatabase local_db;
+    private ClientManager cm;
 
 
     public Jaspe(Config config)
@@ -19,6 +20,7 @@ public class Jaspe
         try {
             kvs = new KeyValueStore(config);
             local_db = new LocalDatabase(config);
+            cm = new ClientManager(config);
         } catch (Exception e) {
             System.err.println(e);
             System.exit(1);
@@ -28,6 +30,12 @@ public class Jaspe
     public void run() throws IOException, FileNotFoundException
     {
         local_db.load(kvs);
+        cm.launchClients();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+        }
+        cm.shutdown();
     }
 
     public static void main( String[] args )
