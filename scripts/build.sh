@@ -1,5 +1,12 @@
 #!/bin/sh
 
+VOLUME=jaspe-m2-repo
 WORKDIR=/usr/local/src/jaspe
 
-docker run -it --rm -v $PWD:$WORKDIR -v $PWD/.m2:/home/maven/.m2 --name builder jaspe-builder
+docker volume create --name $VOLUME
+docker run -it --rm \
+       -v "$PWD:$WORKDIR" \
+       -v "$VOLUME:/root/.m2" \
+       -w "$WORKDIR" \
+       maven \
+       /usr/bin/mvn package
