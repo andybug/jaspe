@@ -1,5 +1,8 @@
 package com.andybug.jaspe;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQException;
 
@@ -42,24 +45,32 @@ class ClientManager
 
     private ZMQ.Context context = ZMQ.context(1);
     private Thread listen_thread;
+    private File client_dir;
+    private short port;
 
     public ClientManager(Config cfg)
     {
-        short port = cfg.getJaspePort();
+        this.client_dir = new File(cfg.getRootPath() + "/clients");
+        this.port = cfg.getJaspePort();
         this.listen_thread = new Thread(new SocketListener(port), "zeromq listen loop");
     }
 
     public void launchClients()
     {
         this.listen_thread.start();
+        try {
+            Runtime.getRuntime().exec(this.client_dir.getPath() + "/elo --port=" + this.port);
+        } catch (IOException e) {
+            System.err.println(e);
+            System.exit(1);
+        }
     }
 
-    public void shutdown()
+    public void waitOnClients()
     {
-        System.out.println("shutdown()");
         try {
-            context.term();
-            this.listen_thread.interrupt();
+            //context.term();
+            //this.listen_thread.interrupt();
             this.listen_thread.join();
         } catch (InterruptedException e) {
             return;

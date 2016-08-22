@@ -31,11 +31,7 @@ public class Jaspe
     {
         local_db.load(kvs);
         cm.launchClients();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-        }
-        cm.shutdown();
+        cm.waitOnClients();
     }
 
     public static void main( String[] args )
